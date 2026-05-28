@@ -1,8 +1,9 @@
 package com.example.ResTesT.exception;
 
 // Importa a classe ResponseEntity para respostas HTTP
-
 import org.springframework.http.ResponseEntity;
+
+// Importa anotações para tratamento global de exceções
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

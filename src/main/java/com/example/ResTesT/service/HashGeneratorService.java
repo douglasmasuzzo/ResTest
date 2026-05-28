@@ -1,10 +1,12 @@
 package com.example.ResTesT.service;
 
+// Importa anotação para registrar a classe como service do Spring
 import org.springframework.stereotype.Service;
 
+// Importa SecureRandom para geração segura de valores aleatórios
 import java.security.SecureRandom;
 
-@Service
+@Service // Define a classe como camada de serviço responsável pela lógica de geração do código hasn
 public class HashGeneratorService {
 
     // Conjunto de caracteres permitidos no hash
@@ -30,6 +32,8 @@ public class HashGeneratorService {
             // e adiciona ao hash
             sb.append(CHARS.charAt(random.nextInt(CHARS.length())));
         }
+
+        // Retorna a String final gerada pelo StringBuilder
         return sb.toString();
     }
 }

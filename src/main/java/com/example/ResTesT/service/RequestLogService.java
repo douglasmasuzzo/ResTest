@@ -1,21 +1,29 @@
 package com.example.ResTesT.service;
 
-
+// Importa a entidade MockEndpoint
 import com.example.ResTesT.domain.MockEndpoint;
+
+// Importa a entidade RequestLog
 import com.example.ResTesT.domain.RequestLog;
+
+// Importa o repository responsável pelos logs
 import com.example.ResTesT.repository.RequestLogRepository;
+
+// Importa anotação para registrar a classe como service Spring
 import org.springframework.stereotype.Service;
 
-@Service
+@Service // Define a classe como camada de serviço responsável pela lógica de logs dos endpoints
 public class RequestLogService {
 
     // Repositório responsável por salvar logs no banco de dados
     private final RequestLogRepository repo;
 
+    // Injeção de dependência via construtor
     public RequestLogService(RequestLogRepository repo) {
         this.repo = repo;
     }
 
+    // Registra novo log de requisição
     public void log(MockEndpoint endpoint, String ip) {
 
         // Cria novo objeto de log
