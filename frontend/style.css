@@ -1,13 +1,24 @@
-/* RESET */
-
+/* ==================================================
+   RESET GERAL
+   Remove margens e espaçamentos padrões dos elementos
+   e define o box-sizing para facilitar o cálculo
+   de largura e altura.
+================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* BODY */
-
+/* ==================================================
+   BODY
+   Define o tema principal da aplicação:
+   - Fundo escuro
+   - Texto claro
+   - Fonte padrão
+   - Altura mínima ocupando toda a tela
+   - Espaçamento interno
+================================================== */
 body {
     background: #0f172a;
     color: #f8fafc;
@@ -16,32 +27,40 @@ body {
     padding: 40px;
 }
 
-/* CONTAINER */
-
+/* ==================================================
+   CONTAINER
+   Centraliza o conteúdo e limita sua largura máxima.
+================================================== */
 .container {
     max-width: 1200px;
     margin: auto;
 }
 
-/* HEADER */
-
+/* ==================================================
+   HEADER
+   Área do cabeçalho da página.
+================================================== */
 header {
     margin-bottom: 40px;
 }
 
+/* Título principal */
 header h1 {
     font-size: 52px;
     color: #38bdf8;
     margin-bottom: 10px;
 }
 
+/* Subtítulo ou descrição */
 header p {
     color: #94a3b8;
     font-size: 18px;
 }
 
-/* CARD */
-
+/* ==================================================
+   CARD
+   Componente visual reutilizável para agrupar conteúdo.
+================================================== */
 .card {
     background: #1e293b;
     border: 1px solid #334155;
@@ -49,17 +68,22 @@ header p {
     padding: 30px;
     margin-bottom: 30px;
 
+    /* Efeito de profundidade */
     box-shadow:
         0 0 20px rgba(0,0,0,0.3),
         0 0 40px rgba(56,189,248,0.05);
 }
 
-/* FORM */
+/* ==================================================
+   FORMULÁRIOS
+================================================== */
 
+/* Espaçamento entre campos */
 .form-group {
     margin-bottom: 20px;
 }
 
+/* Estilo dos rótulos dos campos */
 label {
     display: block;
     margin-bottom: 10px;
@@ -67,6 +91,7 @@ label {
     color: #cbd5e1;
 }
 
+/* Campos de entrada, seleção e texto */
 input,
 select,
 textarea {
@@ -84,6 +109,7 @@ textarea {
     transition: 0.2s;
 }
 
+/* Efeito ao focar no campo */
 input:focus,
 select:focus,
 textarea:focus {
@@ -93,14 +119,18 @@ textarea:focus {
     box-shadow: 0 0 10px rgba(56,189,248,0.3);
 }
 
+/* Configuração específica do textarea */
 textarea {
     min-height: 180px;
     resize: vertical;
     font-family: monospace;
 }
 
-/* BUTTON */
+/* ==================================================
+   BOTÕES
+================================================== */
 
+/* Estilo padrão dos botões */
 button {
     background: linear-gradient(135deg, #0ea5e9, #2563eb);
 
@@ -119,6 +149,7 @@ button {
     transition: 0.2s;
 }
 
+/* Efeito ao passar o mouse */
 button:hover {
     transform: translateY(-2px);
 
@@ -126,16 +157,18 @@ button:hover {
         0 10px 20px rgba(14,165,233,0.3);
 }
 
-
+/* Grupo de botões alinhados horizontalmente */
 .button-group {
     display: flex;
     gap: 14px;
 }
 
+/* Faz cada botão ocupar espaço igual */
 .button-group button {
     flex: 1;
 }
 
+/* Botão especial para ação de formatação */
 .format-btn {
 
     background:
@@ -149,25 +182,28 @@ button:hover {
 
     box-shadow:
         0 12px 25px rgba(139,92,246,0.35);
-
 }
 
+/* Hover do botão de formatação */
 .format-btn:hover {
 
     transform: translateY(-3px);
 
     box-shadow:
         0 18px 35px rgba(139,92,246,0.45);
-
 }
 
-/* ENDPOINT LIST */
+/* ==================================================
+   LISTA DE ENDPOINTS
+================================================== */
 
+/* Layout em grid para os endpoints */
 .endpoint-list {
     display: grid;
     gap: 20px;
 }
 
+/* Card individual de endpoint */
 .endpoint-item {
     background: #0f172a;
     border: 1px solid #334155;
@@ -177,11 +213,13 @@ button:hover {
     padding: 20px;
 }
 
+/* Nome/título do endpoint */
 .endpoint-item h3 {
     color: #38bdf8;
     margin-bottom: 10px;
 }
 
+/* Área que exibe a URL do endpoint */
 .endpoint-url {
     background: #020617;
 
@@ -193,9 +231,11 @@ button:hover {
 
     margin: 15px 0;
 
+    /* Quebra URLs longas automaticamente */
     word-break: break-all;
 }
 
+/* Informações adicionais do endpoint */
 .endpoint-meta {
     display: flex;
     gap: 20px;
@@ -205,8 +245,10 @@ button:hover {
     color: #94a3b8;
 }
 
-/* ACTIONS */
-
+/* ==================================================
+   AÇÕES
+   Área contendo botões de edição e exclusão.
+================================================== */
 .actions {
     display: flex;
     gap: 10px;
@@ -214,31 +256,39 @@ button:hover {
     margin-top: 20px;
 }
 
+/* Botão de exclusão */
 .delete-btn {
     background: linear-gradient(135deg, #dc2626, #991b1b);
 }
 
+/* Botão de edição */
 .edit-btn {
     background: linear-gradient(135deg, #f59e0b, #d97706);
 }
 
-/* RESPONSIVO */
-
+/* ==================================================
+   RESPONSIVIDADE
+   Ajustes para telas menores que 768px.
+================================================== */
 @media (max-width: 768px) {
 
+    /* Reduz o espaçamento da página */
     body {
         padding: 20px;
     }
 
+    /* Diminui o tamanho do título */
     header h1 {
         font-size: 36px;
     }
 
+    /* Organiza os metadados verticalmente */
     .endpoint-meta {
         flex-direction: column;
         gap: 8px;
     }
 
+    /* Empilha os botões de ação */
     .actions {
         flex-direction: column;
     }
