@@ -64,8 +64,8 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
 ### ✅ Semanas 4 — Marco 2: Revisão Final (Em Andamento)
 
 - [x] Validar integração frontend ↔ backend em ambiente real (Supabase)
-- [ ] Testes de integração com Testcontainers
-- [ ] Deploy em cloud (Railway ou Fly.io)
+- [x] Testes de integração com Testcontainers
+- [x] Deploy em cloud (Railway ou Fly.io)
 - [ ] Revisão final da documentação
 ---
 
@@ -101,5 +101,4 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
 ## 🗺️ Próximos Passos
 
 *   **Imediato:** Solucionar divergência entre as branches `backend` e `main` ( `git merge origin/main` ).
-*   **Imediato:** Configurar ambiente de variável para preservar informações sigilosas.
-*   **Imediato:** 
+*   **Parcial:** Finalizar revisão geral do projeto
