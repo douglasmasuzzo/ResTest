@@ -15,8 +15,8 @@ Projeto desenvolvido para a disciplina de **Programação Orientada a Objetos** 
 
 **Time:**
 - Douglas Masuzzo
-- Tiago Felipe 
 - Otávio Augusto 
+- Tiago Felipe 
 
 ---
 
@@ -61,6 +61,12 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
 - [x] **Testes Unitários:** 7 classes de testes cobertas: `controllers`, `exceptionHandler` e `service` (JUnit 5 + Mockito)
 - [x] **Frontend Integrada:** Interface HTML/CSS/JS servida como recurso estático do SpringBoot em `./static`.
 
+### ✅ Semanas 4 — Marco 2: Revisão Final (Em Andamento)
+
+- [x] Validar integração frontend ↔ backend em ambiente real (Supabase)
+- [ ] Testes de integração com Testcontainers
+- [ ] Deploy em cloud (Railway ou Fly.io)
+- [ ] Revisão final da documentação
 ---
 
 ## 🔗 Pull Requests Fechados
@@ -85,10 +91,15 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
     ```bash
     mvn spring-boot:run
     ```
+4. Acesse em: 
+    `http://localhost:8080`
+
+
 
 ---
 
 ## 🗺️ Próximos Passos
 
-*   **Marco 1:** Validação completa da integração frontend ↔ backend e tela de listagem de endpoints.
-*   **Marco 2:** Refinamento de UX, testes unitários nos Services e deploy em cloud (Railway ou Fly.io).
+*   **Imediato:** Solucionar divergência entre as branches `backend` e `main` ( `git merge origin/main` ).
+*   **Imediato:** Configurar ambiente de variável para preservar informações sigilosas.
+*   **Imediato:** 
