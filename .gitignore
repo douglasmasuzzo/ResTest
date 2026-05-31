@@ -1,4 +1,7 @@
+### Project Specifics ###
 HELP.md
+
+### Java & Maven ###
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

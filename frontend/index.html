@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResTest - Gerenciador de Mocks</title>
+
+    <!-- 
+        Vínculo Visual: O CSS define a identidade visual do ResTest,
+        estilizando os cards que representam as entidades 'MockEndpoint'.
+    -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Plano de fundo decorativo (Gradientes definidos no style.css) -->
+<div class="background"></div>
+
+<header class="hero">
+    <h1>ResTest</h1>
+    <p>Crie endpoints mockados reais para testes frontend</p>
+</header>
+
+<main class="container">
+
+    <!-- 
+        SEÇÃO DE FORMULÁRIO (ENTRADA DE DADOS)
+        Este formulário coleta os dados necessários para preencher o DTO 
+        'CreateEndpointRequest' no Backend.
+    -->
+    <section class="card form-card">
+
+        <!-- Mapeia para o atributo 'label' da entidade MockEndpoint -->
+        <div class="field">
+            <label>Nome do endpoint</label>
+            <input type="text" id="label" placeholder="Ex: Usuários API">
+        </div>
+
+        <div class="grid">
+            <!-- Mapeia para o atributo 'statusCode' (int) da entidade MockEndpoint -->
+            <div class="field">
+                <label>Status HTTP</label>
+                <select id="statusCode">
+                    <option value="200">200 (OK)</option>
+                    <option value="201">201 (Created)</option>
+                    <option value="400">400 (Bad Request)</option>
+                    <option value="401">401 (Unauthorized)</option>
+                    <option value="403">403 (Forbidden)</option>
+                    <option value="404">404 (Not Found)</option>
+                    <option value="500">500 (Internal Error)</option>
+                </select>
+            </div>
+
+            <!-- 
+                Mapeia para o atributo 'delayMs' (int).
+                No Backend, o 'PublicApiController' usa Thread.sleep() com este valor.
+            -->
+            <div class="field">
+                <label>Delay (ms)</label>
+                <input type="number" id="delayMs" value="0">
+            </div>
+        </div>
+
+        <!-- 
+            Mapeia para o atributo 'payload' (String/Text).
+            O Backend valida este campo usando o 'PayloadValidatorService'.
+        -->
+        <div class="field">
+            <label>Payload JSON</label>
+            <textarea id="payload" rows="12">
+{
+  "message": "Olá mundo"
+}
+            </textarea>
+        </div>
+
+        <!-- Aciona o método POST ou PUT do 'MockEndpointController' -->
+        <button id="createBtn">
+            Criar Endpoint
+        </button>
+
+        <!-- Função auxiliar local para formatar o JSON antes do envio -->
+        <button class="format-btn" onclick="formatJson()">
+            Formatar JSON
+        </button>
+
+    </section>
+
+    <!-- 
+        SEÇÃO DE RESULTADOS (LISTAGEM)
+        Exibe a lista de 'EndpointResponse' retornada pelo método 'findAll()' do Controller.
+    -->
+    <section class="card result-card">
+
+        <div class="result-header">
+            <h2>Endpoints Criados</h2>
+            <button id="reloadBtn">Atualizar Lista</button>
+        </div>
+
+        <!-- Container populado dinamicamente pelo script.js -->
+        <div id="endpointList" class="endpoint-list">
+        </div>
+
+    </section>
+
+</main>
+
+<!-- 
+    Lógica de Comunicação: O arquivo script.js gerencia as chamadas Fetch API
+    para os endpoints REST do Spring Boot (/mock).
+-->
+<script src="script.js"></script>
+</body>
+</html>
