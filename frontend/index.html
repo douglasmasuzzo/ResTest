@@ -1,170 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-    <!-- ==================================================
-         CONFIGURAÇÕES BÁSICAS DA PÁGINA
-    ================================================== -->
-
-    <!-- Define o conjunto de caracteres UTF-8 -->
     <meta charset="UTF-8">
-
-    <!-- Torna o layout responsivo em dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResTest - Gerenciador de Mocks</title>
 
-    <!-- Título exibido na aba do navegador -->
-    <title>ResTest</title>
-
-    <!-- Importa o arquivo de estilos CSS -->
-    <link rel="stylesheet" href="./style.css">
-
+    <!-- 
+        Vínculo Visual: O CSS define a identidade visual do ResTest,
+        estilizando os cards que representam as entidades 'MockEndpoint'.
+    -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ==================================================
-     PLANO DE FUNDO DECORATIVO
-================================================== -->
+<!-- Plano de fundo decorativo (Gradientes definidos no style.css) -->
 <div class="background"></div>
 
-<!-- ==================================================
-     CABEÇALHO PRINCIPAL (HERO)
-================================================== -->
 <header class="hero">
-
-    <!-- Nome da aplicação -->
     <h1>ResTest</h1>
-
-    <!-- Descrição do sistema -->
     <p>Crie endpoints mockados reais para testes frontend</p>
-
 </header>
 
-<!-- ==================================================
-     CONTEÚDO PRINCIPAL DA APLICAÇÃO
-================================================== -->
 <main class="container">
 
-    <!-- ==================================================
-         FORMULÁRIO DE CRIAÇÃO DE ENDPOINTS
-    ================================================== -->
+    <!-- 
+        SEÇÃO DE FORMULÁRIO (ENTRADA DE DADOS)
+        Este formulário coleta os dados necessários para preencher o DTO 
+        'CreateEndpointRequest' no Backend.
+    -->
     <section class="card form-card">
 
-        <!-- Campo para definir o nome do endpoint -->
+        <!-- Mapeia para o atributo 'label' da entidade MockEndpoint -->
         <div class="field">
             <label>Nome do endpoint</label>
-
-            <input
-                type="text"
-                id="label"
-                placeholder="Usuários API"
-            >
+            <input type="text" id="label" placeholder="Ex: Usuários API">
         </div>
 
-        <!-- Grid contendo Status HTTP e Delay -->
         <div class="grid">
-
-            <!-- Seleção do código HTTP -->
+            <!-- Mapeia para o atributo 'statusCode' (int) da entidade MockEndpoint -->
             <div class="field">
-
                 <label>Status HTTP</label>
-
                 <select id="statusCode">
-
-                    <!-- Opções de status possíveis -->
-                    <option value="200">200</option>
-                    <option value="201">201</option>
-                    <option value="400">400</option>
-                    <option value="401">401</option>
-                    <option value="403">403</option>
-                    <option value="404">404</option>
-                    <option value="500">500</option>
-
+                    <option value="200">200 (OK)</option>
+                    <option value="201">201 (Created)</option>
+                    <option value="400">400 (Bad Request)</option>
+                    <option value="401">401 (Unauthorized)</option>
+                    <option value="403">403 (Forbidden)</option>
+                    <option value="404">404 (Not Found)</option>
+                    <option value="500">500 (Internal Error)</option>
                 </select>
-
             </div>
 
-            <!-- Tempo de resposta simulado -->
+            <!-- 
+                Mapeia para o atributo 'delayMs' (int).
+                No Backend, o 'PublicApiController' usa Thread.sleep() com este valor.
+            -->
             <div class="field">
-
                 <label>Delay (ms)</label>
-
-                <input
-                    type="number"
-                    id="delayMs"
-                    value="0"
-                >
-
+                <input type="number" id="delayMs" value="0">
             </div>
-
         </div>
 
-        <!-- Campo para inserir o JSON de resposta -->
+        <!-- 
+            Mapeia para o atributo 'payload' (String/Text).
+            O Backend valida este campo usando o 'PayloadValidatorService'.
+        -->
         <div class="field">
-
             <label>Payload JSON</label>
-
-            <textarea
-                id="payload"
-                rows="12">
-
+            <textarea id="payload" rows="12">
 {
   "message": "Olá mundo"
 }
-
             </textarea>
-
         </div>
 
-        <!-- Botão responsável por criar o endpoint -->
+        <!-- Aciona o método POST ou PUT do 'MockEndpointController' -->
         <button id="createBtn">
             Criar Endpoint
         </button>
 
-        <!-- Botão que formata automaticamente o JSON -->
-        <button
-            class="format-btn"
-            onclick="formatJson()">
-
+        <!-- Função auxiliar local para formatar o JSON antes do envio -->
+        <button class="format-btn" onclick="formatJson()">
             Formatar JSON
-
         </button>
 
     </section>
 
-    <!-- ==================================================
-         LISTAGEM DOS ENDPOINTS CRIADOS
-    ================================================== -->
+    <!-- 
+        SEÇÃO DE RESULTADOS (LISTAGEM)
+        Exibe a lista de 'EndpointResponse' retornada pelo método 'findAll()' do Controller.
+    -->
     <section class="card result-card">
 
-        <!-- Cabeçalho da área de resultados -->
         <div class="result-header">
-
             <h2>Endpoints Criados</h2>
-
-            <!-- Atualiza a lista de endpoints -->
-            <button id="reloadBtn">
-                Atualizar
-            </button>
-
+            <button id="reloadBtn">Atualizar Lista</button>
         </div>
 
-        <!-- Container onde os endpoints serão renderizados via JavaScript -->
-        <div
-            id="endpointList"
-            class="endpoint-list">
-
+        <!-- Container populado dinamicamente pelo script.js -->
+        <div id="endpointList" class="endpoint-list">
         </div>
 
     </section>
 
 </main>
 
-<!-- ==================================================
-     SCRIPT PRINCIPAL DA APLICAÇÃO
-     Responsável pela lógica de criação,
-     atualização e gerenciamento dos endpoints.
-================================================== -->
-<script src="code.js"></script>
-
+<!-- 
+    Lógica de Comunicação: O arquivo script.js gerencia as chamadas Fetch API
+    para os endpoints REST do Spring Boot (/mock).
+-->
+<script src="script.js"></script>
 </body>
 </html>
