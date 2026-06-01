@@ -61,12 +61,11 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
 - [x] **Testes Unitários:** 7 classes de testes cobertas: `controllers`, `exceptionHandler` e `service` (JUnit 5 + Mockito)
 - [x] **Frontend Integrada:** Interface HTML/CSS/JS servida como recurso estático do SpringBoot em `./static`.
 
-### ✅ Semanas 4 — Marco 2: Revisão Final (Em Andamento)
+### ✅ Semanas 4 — Marco 2: Revisão Final (Concluído)
 
 - [x] Validar integração frontend ↔ backend em ambiente real (Supabase)
-- [x] Testes de integração com Testcontainers
-- [x] Deploy em cloud (Railway ou Fly.io)
-- [ ] Revisão final da documentação
+- [x] Integração entre branches `backend`, `frontend` e `main`
+- [x] Revisão final da documentação
 ---
 
 ## 🔗 Pull Requests Fechados
@@ -100,5 +99,5 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
 
 ## 🗺️ Próximos Passos
 
-*   **Imediato:** Solucionar divergência entre as branches `backend` e `main` ( `git merge origin/main` ).
-*   **Parcial:** Finalizar revisão geral do projeto
+*   **Pós-entrega:** Deploy de aplicação em _Railway_ ou _Fly.io_, configurando as variáveis de ambientes de produçõa no painel da plataforma escolhida.
+*   **Pós-entrega:** Implementar testes de integração com _Testcontainers_ para validação de repositórios JPA em ambiente real (sem dependência do Supabase em testes automatizados).
