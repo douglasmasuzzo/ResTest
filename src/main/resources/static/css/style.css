@@ -1,4 +1,6 @@
-/* RESET */
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESET
+───────────────────────────────────────────────────────────────────────────── */
 
 * {
     margin: 0;
@@ -6,7 +8,9 @@
     box-sizing: border-box;
 }
 
-/* BODY */
+/* ─────────────────────────────────────────────────────────────────────────────
+   BODY
+───────────────────────────────────────────────────────────────────────────── */
 
 body {
     background: #0f172a;
@@ -16,14 +20,18 @@ body {
     padding: 40px;
 }
 
-/* CONTAINER */
+/* ─────────────────────────────────────────────────────────────────────────────
+   CONTAINER
+───────────────────────────────────────────────────────────────────────────── */
 
 .container {
     max-width: 1200px;
     margin: auto;
 }
 
-/* HEADER */
+/* ─────────────────────────────────────────────────────────────────────────────
+   HEADER
+───────────────────────────────────────────────────────────────────────────── */
 
 header {
     margin-bottom: 40px;
@@ -40,7 +48,9 @@ header p {
     font-size: 18px;
 }
 
-/* CARD */
+/* ─────────────────────────────────────────────────────────────────────────────
+   CARD
+───────────────────────────────────────────────────────────────────────────── */
 
 .card {
     background: #1e293b;
@@ -54,9 +64,20 @@ header p {
         0 0 40px rgba(56,189,248,0.05);
 }
 
-/* FORM */
+/* ─────────────────────────────────────────────────────────────────────────────
+   FORM — campos do formulário
+───────────────────────────────────────────────────────────────────────────── */
 
-.form-group {
+/* Classe .field usada no HTML para agrupar label + input */
+.field {
+    margin-bottom: 20px;
+}
+
+/* Grid de duas colunas para Status + Delay lado a lado */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
     margin-bottom: 20px;
 }
 
@@ -99,7 +120,9 @@ textarea {
     font-family: monospace;
 }
 
-/* BUTTON */
+/* ─────────────────────────────────────────────────────────────────────────────
+   BUTTONS
+───────────────────────────────────────────────────────────────────────────── */
 
 button {
     background: linear-gradient(135deg, #0ea5e9, #2563eb);
@@ -117,6 +140,9 @@ button {
     font-weight: bold;
 
     transition: 0.2s;
+
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
 button:hover {
@@ -126,103 +152,164 @@ button:hover {
         0 10px 20px rgba(14,165,233,0.3);
 }
 
-
-.button-group {
-    display: flex;
-    gap: 14px;
-}
-
-.button-group button {
-    flex: 1;
-}
-
+/* Botão de formatar JSON (roxo) */
 .format-btn {
-
-    background:
-        linear-gradient(
-            135deg,
-            #8b5cf6,
-            #6d28d9
-        );
-
-    color: white;
-
-    box-shadow:
-        0 12px 25px rgba(139,92,246,0.35);
-
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    box-shadow: 0 12px 25px rgba(139,92,246,0.35);
 }
 
 .format-btn:hover {
-
     transform: translateY(-3px);
-
-    box-shadow:
-        0 18px 35px rgba(139,92,246,0.45);
-
+    box-shadow: 0 18px 35px rgba(139,92,246,0.45);
 }
 
-/* ENDPOINT LIST */
+/* Botão de excluir (vermelho) */
+.delete-btn {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+}
+
+.delete-btn:hover {
+    box-shadow: 0 10px 20px rgba(220,38,38,0.3);
+}
+
+/* Botão de editar (âmbar) */
+.edit-btn {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.edit-btn:hover {
+    box-shadow: 0 10px 20px rgba(245,158,11,0.3);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESULT CARD — cabeçalho da seção de endpoints
+───────────────────────────────────────────────────────────────────────────── */
+
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.result-header h2 {
+    color: #38bdf8;
+    font-size: 22px;
+}
+
+/* Botão "Atualizar" no cabeçalho da lista — menor que o botão principal */
+.result-header button {
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ENDPOINT LIST — lista de cards de endpoints
+───────────────────────────────────────────────────────────────────────────── */
 
 .endpoint-list {
     display: grid;
     gap: 20px;
 }
 
+/* Estado vazio da lista */
+.empty {
+    color: #94a3b8;
+    text-align: center;
+    padding: 40px;
+}
+
+/* Card individual de cada endpoint */
 .endpoint-item {
     background: #0f172a;
     border: 1px solid #334155;
-
     border-radius: 16px;
-
     padding: 20px;
 }
 
-.endpoint-item h3 {
-    color: #38bdf8;
+/* Linha superior: label + badge de status */
+.endpoint-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
 }
 
+/* Nome do endpoint */
+.endpoint-label {
+    font-weight: bold;
+    color: #f8fafc;
+    font-size: 16px;
+}
+
+/* Badge de status HTTP — cor muda conforme a classe */
+.status {
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* 2xx — sucesso (verde) */
+.status-200,
+.status-201 {
+    background: rgba(34,197,94,0.15);
+    color: #4ade80;
+}
+
+/* 4xx — erro do cliente (amarelo) */
+.status-400,
+.status-401,
+.status-403,
+.status-404 {
+    background: rgba(234,179,8,0.15);
+    color: #facc15;
+}
+
+/* 5xx — erro do servidor (vermelho) */
+.status-500 {
+    background: rgba(239,68,68,0.15);
+    color: #f87171;
+}
+
+/* URL pública do endpoint em destaque monoespaçado */
 .endpoint-url {
     background: #020617;
-
     padding: 12px;
-
     border-radius: 10px;
-
     font-family: monospace;
-
-    margin: 15px 0;
-
+    font-size: 13px;
+    color: #38bdf8;
+    margin: 12px 0;
     word-break: break-all;
 }
 
+/* Metadados secundários (delay, etc.) */
 .endpoint-meta {
     display: flex;
     gap: 20px;
-
-    margin-top: 15px;
-
     color: #94a3b8;
+    font-size: 13px;
+    margin-bottom: 16px;
 }
 
-/* ACTIONS */
-
+/* Linha de botões de ação */
 .actions {
     display: flex;
     gap: 10px;
-
-    margin-top: 20px;
+    margin-top: 4px;
 }
 
-.delete-btn {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
+.actions button {
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 14px;
 }
 
-.edit-btn {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-}
-
-/* RESPONSIVO */
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESPONSIVO
+───────────────────────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
 
@@ -234,6 +321,11 @@ button:hover {
         font-size: 36px;
     }
 
+    /* Em mobile, Status + Delay empilham verticalmente */
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
     .endpoint-meta {
         flex-direction: column;
         gap: 8px;
@@ -241,5 +333,11 @@ button:hover {
 
     .actions {
         flex-direction: column;
+    }
+
+    .result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
     }
 }
