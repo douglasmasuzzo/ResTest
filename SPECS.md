@@ -12,14 +12,17 @@ O **ResTest** é uma aplicação fullstack que permite ao usuário definir um pa
 
 ## 2. Stack Tecnológica
 
+A escolha da stack foca em simplicidade para o usuário final, alta performance no controller público e facilidade de manutenção através de tecnologias modernas e maduras.
+
 | Camada | Tecnologia | Justificativa |
 |---|---|---|
 | Backend | Java 21 + Spring Boot 3.x | Suporte a Virtual Threads (Loom), ecossistema maduro |
 | Frontend | HTML5, CSS3 e JS Vanilla | Simplicidade; servido via recursos estáticos do Spring |
 | Banco de Dados | PostgreSQL (Supabase) | Suporte a JSONB nativo, escalabilidade |
 | Segurança | Spring Security + BCrypt | Proteção de endpoints administrativos e rate limiting |
-| Rate Limit | Bucket4j | Controle de abuso por IP |
+| Rate Limit | Bucket4j | Controle de abuso por IP robusto |
 | Produtividade | Lombok | Redução de código boilerplate (Getters/Setters) |
+| Build/Deps | Maven | Gerenciamento de dependências e automação de build padronizado |
 
 ---
 

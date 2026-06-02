@@ -16,12 +16,14 @@ O **ResTest** é uma aplicação web que permite a desenvolvedores front-end cri
 
 ## 2. Stack Tecnológica
 
-| Camada | Tecnologia |
-|---|---|
-| Backend | Java 21 + Spring Boot 3.x |
-| Frontend | HTML5, CSS3 e JS Vanilla (Static) |
-| Banco de Dados | PostgreSQL via Supabase |
-| Segurança | Spring Security + Rate Limit (Bucket4j) |
+| Camada | Tecnologia | Justificativa |
+|---|---|---|
+| Backend | Java 21 + Spring Boot 3.x | Suporte a Virtual Threads (Loom), ecossistema maduro |
+| Frontend | HTML5, CSS3 e JS Vanilla | Simplicidade; servido via recursos estáticos do Spring |
+| Banco de Dados | PostgreSQL (Supabase) | Suporte a JSONB nativo, escalabilidade |
+| Segurança | Spring Security + Rate Limit | Proteção de endpoints e controle de abuso por IP |
+| **Utilitários** | Lombok + Bucket4j | Redução de boilerplate e rate limiting robusto |
+| **Build/Deps** | Maven | Gerenciamento de dependências e automação de build |
 
 ---
 
@@ -92,7 +94,7 @@ e de qual origem (IP e Data).
 | RNF02 | Resposta em menos de 500ms | Alta | Índice em `hash` no PostgreSQL, sem cold-start |
 | RNF03 | Suporte a CORS | Alta | `CorsConfig` global no Spring com `Access-Control-Allow-Origin: *` |
 | RNF04 | Usabilidade — criar endpoint em até 2 minutos | Média | Fluxo de criação em tela única, feedback inline |
-| RNF05 | Segurança básica — prevenção de abuso | Média | Tamanho máximo de JSON: 100 KB; autenticação obrigatória para criar endpoints |
+| RNF05 | Segurança básica — prevenção de abuso | Média | Tamanho máximo de JSON: 100 KB; rate limiting via Bucket4j por IP |
 | RNF06 | Escalabilidade | Baixa | Design stateless no controller público; índices no banco |
 | RNF07 | Manutenibilidade — boas práticas de OO | Média | Separação em camadas (Controller → Service → Repository), SRP por classe |
 
@@ -101,20 +103,21 @@ e de qual origem (IP e Data).
 ## 5. Modelo de Dados Simplificado
 
 ```
-usuarios
-  id          UUID PK
-  email       VARCHAR UNIQUE
-  senha_hash  VARCHAR
-  criado_em   TIMESTAMPTZ
-
 mock_endpoints
   id          UUID PK
-  usuario_id  UUID FK → usuarios.id
   hash        VARCHAR(8) UNIQUE
-  payload     JSONB
-  status_code SMALLINT DEFAULT 200
-  criado_em   TIMESTAMPTZ
-  atualizado_em TIMESTAMPTZ
+  payload     TEXT
+  status_code INTEGER DEFAULT 200
+  delay_ms    INTEGER DEFAULT 0
+  criado_em   TIMESTAMP
+  atualizado_em TIMESTAMP
+
+request_logs
+  id          BIGSERIAL PK
+  endpoint_id UUID FK → mock_endpoints.id
+  method      VARCHAR(10)
+  chamado_em  TIMESTAMP
+  caller_ip   VARCHAR(45)
 ```
 
 ---
@@ -122,13 +125,12 @@ mock_endpoints
 ## 6. Fluxo Principal de Uso
 
 ```
-1. Usuário acessa ResTest → tela de login/cadastro
-2. Faz login → é redirecionado para sua lista de endpoints
-3. Clica em "Novo endpoint" → abre formulário
-4. Cola o JSON → sistema valida a sintaxe em tempo real
-5. Clica em "Criar" → sistema gera URL pública
-6. Copia a URL com 1 clique → usa no front-end que está testando
-7. Pode excluir o endpoint quando não precisar mais
+1. Usuário acessa ResTest → tela inicial de criação/listagem
+2. Cola o payload JSON → sistema valida a sintaxe em tempo real
+3. Define Status Code e Delay (opcional)
+4. Clica em "Criar" → sistema gera URL pública instantaneamente
+5. Copia a URL com 1 clique → usa no front-end que está testando
+6. Gerencia seus endpoints na lista (Editar, Excluir, Ver Logs)
 ```
 
 ---

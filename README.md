@@ -50,7 +50,7 @@ Para detalhes profundos, consulte nossos guias técnicos:
 - Elaboração dos documentos de especificação técnica e funcional.
 - Definição da arquitetura em camadas e modelo de dados.
 
-### ✅ Semanas 2-3 — Marco 1: Lógica e Backend (Concluído)
+### ✅ Semanas 2-3 — Marco 1: Lógica e Visual (Concluído)
 Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entregue e está validada.
 
 - [x] **Estrutura Base:** Setup do projeto Spring Boot e organização de pacotes (`com.example.ResTesT`).
@@ -61,6 +61,9 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
 - [x] **Admin Module:** Implementação do `AdminController` para monitoramento do sistema.
 - [x] **Histórico de Acessos:** Registro e exposição de `RequestLog` [**RF09 - Histórico de Logs recebidos**](requirements.md).
 - [x] **Frontend Migration:** Integração dos recursos web na pasta `src/main/resources/static`.
+
+### ✅ Semanas 4 - Marco 2: Revisão geral (Concluído)
+- As etapas de revisão e desenvolvimento foram concluídas com êxito. 
 
 ---
 
