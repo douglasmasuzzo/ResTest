@@ -4,7 +4,7 @@
 **Docente:** Ricardo Pupo   
 **Time:** Douglas Masuzzo, Tiago Felipe e Otávio Augusto   
 **Início:** 28 de abril de 2026  
-**Entrega:** 02 de junho de 2026
+**Entrega:** 16 de junho de 2026
 
 ---
 
@@ -21,8 +21,7 @@ O **ResTest** é uma aplicação web que permite a desenvolvedores front-end cri
 | Backend | Java 21 + Spring Boot 3.x |
 | Frontend | HTML5, CSS3 e JavaScript Vanilla |
 | Banco de Dados | PostgreSQL via Supabase |
-| Autenticação | Spring Security + Rate Limiting via Bucket4j|
-| Build/Deps | Maven | 
+| Autenticação | Spring Security (sessão com usuário/senha) |
 
 ---
 
@@ -165,6 +164,12 @@ RequestLogRepository). Custo concentrado apenas na camada de apresentação.
 ## 5. Modelo de Dados Simplificado
 
 ```
+usuarios
+  id          UUID PK
+  email       VARCHAR UNIQUE
+  senha_hash  VARCHAR
+  criado_em   TIMESTAMPTZ
+
 mock_endpoints
   id          UUID PK
   usuario_id  UUID FK → usuarios.id
@@ -173,13 +178,6 @@ mock_endpoints
   status_code SMALLINT DEFAULT 200
   criado_em   TIMESTAMPTZ
   atualizado_em TIMESTAMPTZ
-
-request_logs
-  id          BIGSERIAL PK
-  endpoint_id UUID FK → mock_endpoints.id
-  metodo      VARCHAR(10)
-  called_at   TIMESTAMPTZ
-  caller_ip   VARCHAR(45)
 ```
 
 ---
@@ -187,13 +185,13 @@ request_logs
 ## 6. Fluxo Principal de Uso
 
 ```
-1. Usuário acessa ResTest → interface carregada em `http:localhost:8080`
-2. Preenche o formulário: nome, status HTTP, delay e paylodad em JSON
-3. Clica em "Criar Endpoint" → sistema valida o JSON e gera o _hash_
-4. A URL pública é exibida: `http:localhost:8080/api/{hash}`
-5. Copia a URL e usa no front-end que está testando
-6. Pode editar ou excluir o endpoint pela listagem
-7. Cada acesso à URL pública é registrado no histórico (RF09)
+1. Usuário acessa ResTest → tela de login/cadastro
+2. Faz login → é redirecionado para sua lista de endpoints
+3. Clica em "Novo endpoint" → abre formulário
+4. Cola o JSON → sistema valida a sintaxe em tempo real
+5. Clica em "Criar" → sistema gera URL pública
+6. Copia a URL com 1 clique → usa no front-end que está testando
+7. Pode excluir o endpoint quando não precisar mais
 ```
 
 ---

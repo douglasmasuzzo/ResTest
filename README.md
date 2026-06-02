@@ -15,8 +15,8 @@ Projeto desenvolvido para a disciplina de **Programação Orientada a Objetos** 
 
 **Time:**
 - Douglas Masuzzo
-- Otávio Augusto 
 - Tiago Felipe 
+- Otávio Augusto 
 
 ---
 
@@ -36,10 +36,9 @@ Projeto desenvolvido para a disciplina de **Programação Orientada a Objetos** 
 
 Para detalhes profundos, consulte nossos guias técnicos:
 
-*   📄 [**SPECS.md**](./SPECS.md) - _Arquitetura, Modelagem e Endpoints._
-*   📄 [**AGENTS.md**](./AGENTS.md) - _Definição de papéis e responsabilidades (API Guardian, UI Crafter, etc)._
-*   📄 [**requirements.md**](./requirements.md) - _Escopo funcional e cronograma._
-*   📄 [**relatorio_testes.md**](/relatorio_testes.md) - _Relatório de Testes._
+*   📄 [**SPECS.md**](./SPECS.md) - Arquitetura, Modelagem e Endpoints.
+*   📄 [**AGENTS.md**](./AGENTS.md) - Definição de papéis e responsabilidades (API Guardian, UI Crafter, etc).
+*   📄 [**requirements.md**](./requirements.md) - Escopo funcional e cronograma.
 
 ---
 
@@ -58,22 +57,15 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
 - [x] **Serviços de Negócio:** Implementação do `MockEndpointService`, `PayloadValidatorService` e `HashGeneratorService`.
 - [x] **Endpoints REST:** Criação de controladores REST para comunicação com o frontend.
 - [x] **Histórico de Acessos:** Registro e exposição de `RequestLog` [**RF09 - Histórico de Logs recebidos**](requirements.md).
-- [x] **Testes Unitários:** 7 classes de testes cobertas: `controllers`, `exceptionHandler` e `service` (JUnit 5 + Mockito)
-- [x] **Frontend Integrada:** Interface HTML/CSS/JS servida como recurso estático do SpringBoot em `./static`.
+- [ ] **Frontend Initial:** Dashboard de endpoints em HTML/JS.
 
-### ✅ Semanas 4 — Marco 2: Revisão Final (Concluído)
-
-- [x] Validar integração frontend ↔ backend em ambiente real (Supabase)
-- [x] Integração entre branches `backend`, `frontend` e `main`
-- [x] Revisão final da documentação
 ---
 
-## 🔗 Pull Requests Fechados
+## 🔗 Pull Requests Ativos
 
 | PR | Descrição | Status |
 |---|---|---|
-| `#1` | **chore: entrega da camada visual** - Implementação da interface frontend para gerenciamento de endpoints mockados. | ✅ Review concluído |
-| `#2` | **chore: entrega da camada lógica** - Integração da camada lógica com a camada de persistência, testes unitários e frontend estático. | ✅ Review concluído |
+| `#2` | **chore: entrega da estrutura lógica** - Implementação completa do Backend, Services e Security. | 🕒 Aguardando Review |
 
 ---
 
@@ -90,14 +82,10 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
     ```bash
     mvn spring-boot:run
     ```
-4. Acesse em: 
-    `http://localhost:8080`
-
-
 
 ---
 
 ## 🗺️ Próximos Passos
 
-*   **Pós-entrega:** Deploy de aplicação em _Railway_ ou _Fly.io_, configurando as variáveis de ambientes de produçõa no painel da plataforma escolhida.
-*   **Pós-entrega:** Implementar testes de integração com _Testcontainers_ para validação de repositórios JPA em ambiente real (sem dependência do Supabase em testes automatizados).
+*   **Marco 1:** Validação completa da integração frontend ↔ backend e tela de listagem de endpoints.
+*   **Marco 2:** Refinamento de UX, testes unitários nos Services e deploy em cloud (Railway ou Fly.io).

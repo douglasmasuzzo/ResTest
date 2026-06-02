@@ -104,7 +104,7 @@ CREATE INDEX idx_request_logs_endpoint_id ON request_logs (endpoint_id);
 ## 5. Estrutura de Pacotes (Backend)
 
 ```
-com.example.ResTesT
+com.example.ResTest
 ├── config/
 │   ├── CorsConfig.java             # Configuração global de CORS
 │   └── RateLimitFilter.java        # Filtro de rate limiting por IP
