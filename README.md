@@ -27,7 +27,8 @@ Projeto desenvolvido para a disciplina de **Programação Orientada a Objetos** 
 | **Backend** | Java 21 + Spring Boot 3.x |
 | **Frontend** | HTML5, CSS3 e JavaScript Vanilla |
 | **Banco de Dados** | PostgreSQL (Supabase) |
-| **Segurança** | Spring Security |
+| **Segurança** | Spring Security + BCrypt |
+| **Utilitários** | Lombok + Bucket4j (Rate Limit) |
 | **Build/Deps** | Maven |
 
 ---
@@ -39,33 +40,38 @@ Para detalhes profundos, consulte nossos guias técnicos:
 *   📄 [**SPECS.md**](./SPECS.md) - Arquitetura, Modelagem e Endpoints.
 *   📄 [**AGENTS.md**](./AGENTS.md) - Definição de papéis e responsabilidades (API Guardian, UI Crafter, etc).
 *   📄 [**requirements.md**](./requirements.md) - Escopo funcional e cronograma.
+*   📄 [**TesteRelatorio.md**](./TesteRelatorio.md) - Relatório de testes e validação lógica.
 
 ---
 
 ## 📈 Progresso do Projeto
 
-### ✅ Semana 1 — Planejamento *(Concluído)*
+### ✅ Semana 1 — Planejamento (Concluído)
 - Elaboração dos documentos de especificação técnica e funcional.
 - Definição da arquitetura em camadas e modelo de dados.
 
 ### ✅ Semanas 2-3 — Marco 1: Lógica e Backend (Concluído)
 Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entregue e está validada.
 
-- [x] **Estrutura Base:** Setup do projeto Spring Boot e organização de pacotes (`com.example.ResTest`).
+- [x] **Estrutura Base:** Setup do projeto Spring Boot e organização de pacotes (`com.example.ResTesT`).
 - [x] **Persistência:** Integração com Supabase e mapeamento das entidades `MockEndpoint` e `RequestLog`.
-- [x] **Segurança:** Configuração inicial do Spring Security e `RateLimitFilter` por IP.
+- [x] **Segurança:** Configuração do Spring Security e `RateLimitFilter` por IP (Bucket4j).
 - [x] **Serviços de Negócio:** Implementação do `MockEndpointService`, `PayloadValidatorService` e `HashGeneratorService`.
 - [x] **Endpoints REST:** Criação de controladores REST para comunicação com o frontend.
+- [x] **Admin Module:** Implementação do `AdminController` para monitoramento do sistema.
 - [x] **Histórico de Acessos:** Registro e exposição de `RequestLog` [**RF09 - Histórico de Logs recebidos**](requirements.md).
-- [ ] **Frontend Initial:** Dashboard de endpoints em HTML/JS.
+- [x] **Frontend Migration:** Integração dos recursos web na pasta `src/main/resources/static`.
 
 ---
 
-## 🔗 Pull Requests Ativos
+## 🔗 Status do Repositório
 
-| PR | Descrição | Status |
-|---|---|---|
-| `#2` | **chore: entrega da estrutura lógica** - Implementação completa do Backend, Services e Security. | 🕒 Aguardando Review |
+| Componente | Status |
+|---|---|
+| **Backend API** | ✅ Funcional |
+| **Segurança/RateLimit** | ✅ Ativo |
+| **Frontend Estático** | ✅ Integrado |
+| **Suíte de Testes** | ✅ 100% Passando |
 
 ---
 
@@ -78,14 +84,15 @@ Nesta fase, focamos na "espinha dorsal" do sistema. A estrutura lógica foi entr
     SPRING_DATASOURCE_USERNAME=seu_usuario
     SPRING_DATASOURCE_PASSWORD=sua_senha
     ```
-3.  Navegue até a pasta `Backend` e execute:
+3.  Execute o projeto:
     ```bash
-    mvn spring-boot:run
+    ./mvnw spring-boot:run
     ```
 
 ---
 
 ## 🗺️ Próximos Passos
 
-*   **Marco 1:** Validação completa da integração frontend ↔ backend e tela de listagem de endpoints.
-*   **Marco 2:** Refinamento de UX, testes unitários nos Services e deploy em cloud (Railway ou Fly.io).
+*   **Refinamento:** Melhorar a UX da dashboard de listagem.
+*   **DevOps:** Configuração de pipeline CI/CD e deploy em nuvem (Railway).
+*   **Expansão:** Suporte a diferentes métodos HTTP (POST/PUT) nos endpoints falsos.

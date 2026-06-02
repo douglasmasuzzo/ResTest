@@ -14,12 +14,12 @@ O **ResTest** é uma aplicação fullstack que permite ao usuário definir um pa
 
 | Camada | Tecnologia | Justificativa |
 |---|---|---|
-| Backend | Java 21 + Spring Boot 3.x | Ecossistema maduro, suporte a Virtual Threads (Loom), fácil exposição de REST APIs |
-| Frontend | HTML5, CSS3 e JavaScript Vanilla | Simplicidade e rapidez no desenvolvimento; comunicação via Fetch API com o backend |
-| Banco de Dados | PostgreSQL (Supabase) | Banco gerenciado, suporte a JSONB nativo, escalabilidade horizontal |
-| ORM | Spring Data JPA + Hibernate | Mapeamento objeto-relacional padrão do ecossistema Spring |
-| Validação | Jackson + Bean Validation | Validação de JSON e campos de formulário |
-| Build | Maven | Padrão de mercado para projetos Spring Boot |
+| Backend | Java 21 + Spring Boot 3.x | Suporte a Virtual Threads (Loom), ecossistema maduro |
+| Frontend | HTML5, CSS3 e JS Vanilla | Simplicidade; servido via recursos estáticos do Spring |
+| Banco de Dados | PostgreSQL (Supabase) | Suporte a JSONB nativo, escalabilidade |
+| Segurança | Spring Security + BCrypt | Proteção de endpoints administrativos e rate limiting |
+| Rate Limit | Bucket4j | Controle de abuso por IP |
+| Produtividade | Lombok | Redução de código boilerplate (Getters/Setters) |
 
 ---
 
@@ -121,7 +121,8 @@ com.example.ResTest
 │   └── RequestLogService.java      # Registro de chamadas recebidas
 ├── controller/                     # Controladores REST
 │   ├── MockEndpointController.java # CRUD interno (/mock)
-│   └── PublicApiController.java    # GET /api/{hash}
+│   ├── PublicApiController.java    # GET /api/{hash}
+│   └── AdminController.java        # Dashboard administrativa
 └── dto/
     ├── CreateEndpointRequest.java
     └── EndpointResponse.java
@@ -135,26 +136,23 @@ com.example.ResTest
 
 | Método | Rota | Descrição |
 |---|---|---|
-| `GET` | `/api/{hash}` | Retorna o JSON configurado com o status code e delay definidos |
+| `GET` | `/api/{hash}` | Retorna o JSON configurado |
 
-**Resposta de exemplo:**
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-
-{ "id": 1, "name": "ResTest User" }
-```
-
-### 6.2 Interface REST Interna (CRUD)
+### 6.2 Gerenciamento (CRUD)
 
 | Método | Rota | Descrição |
 |---|---|---|
 | `POST` | `/mock` | Cria novo endpoint |
-| `GET` | `/mock` | Lista todos os endpoints |
-| `PUT` | `/mock/{id}` | Atualiza payload ou configurações |
+| `GET` | `/mock` | Lista endpoints |
+| `PUT` | `/mock/{id}` | **(Novo)** Atualiza payload/config |
 | `DELETE` | `/mock/{id}` | Remove endpoint |
+
+### 6.3 Administrativo (Admin)
+
+| Método | Rota | Descrição |
+|---|---|---|
+| `GET` | `/admin/stats` | Estatísticas globais do sistema |
+| `GET` | `/admin/endpoints` | Visão geral de todos os hashes criados |
 
 ---
 

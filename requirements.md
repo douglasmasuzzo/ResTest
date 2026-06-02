@@ -4,7 +4,7 @@
 **Docente:** Ricardo Pupo   
 **Time:** Douglas Masuzzo, Tiago Felipe e Otávio Augusto   
 **Início:** 28 de abril de 2026  
-**Entrega:** 16 de junho de 2026
+**Entrega:** 02 de junho de 2026
 
 ---
 
@@ -19,9 +19,9 @@ O **ResTest** é uma aplicação web que permite a desenvolvedores front-end cri
 | Camada | Tecnologia |
 |---|---|
 | Backend | Java 21 + Spring Boot 3.x |
-| Frontend | HTML5, CSS3 e JavaScript Vanilla |
+| Frontend | HTML5, CSS3 e JS Vanilla (Static) |
 | Banco de Dados | PostgreSQL via Supabase |
-| Autenticação | Spring Security (sessão com usuário/senha) |
+| Segurança | Spring Security + Rate Limit (Bucket4j) |
 
 ---
 
@@ -43,7 +43,7 @@ permanece ativa para proteção contra abuso via rate limiting.
 
 ### RF02 — Criação de endpoint com payload JSON ★ Obrigatório
 
-**Descrição:** O usuário autenticado deve ser capaz de criar um endpoint falso inserindo um payload JSON customizado.
+**Descrição:** O usuário deve ser capaz de criar um endpoint falso inserindo um payload JSON customizado.
 
 **Critérios de aceitação:**
 - Área de texto para inserir o JSON.
@@ -51,99 +51,36 @@ permanece ativa para proteção contra abuso via rate limiting.
 - Ao salvar, o sistema gera e exibe a URL pública do endpoint.
 - URL copiável com um clique.
 
-**Estimativa:** 6h
+---
+
+### RF04 — Listagem de endpoints ★ Obrigatório
+
+**Descrição:** O sistema deve exibir todos os endpoints criados para gerenciamento.
 
 ---
 
-### RF03 — Retorno do JSON via HTTP ★ Obrigatório
+### RF06 — Configuração de status code ★ Obrigatório
 
-**Descrição:** A URL gerada deve responder a requisições HTTP GET retornando o JSON configurado.
+**Descrição:** O usuário pode definir o status HTTP que o endpoint irá retornar (200, 201, 400, 404, 500).
 
-**Critérios de aceitação:**
-- Resposta com `Content-Type: application/json`.
-- Status code 200 por padrão.
-- Headers CORS habilitados (`Access-Control-Allow-Origin: *`).
-- Suporte a preflight OPTIONS.
-
-**Estimativa:** 4h
+**Status:** Implementado (Backend & Model)
 
 ---
 
-### RF04 — Listagem de endpoints do usuário ★ Obrigatório
+### RF07 — Edição de endpoint existente ★ Obrigatório
 
-**Descrição:** O usuário deve visualizar todos os endpoints que criou.
+**Descrição:** O usuário pode editar o JSON, delay ou status de um endpoint já criado sem alterar sua URL.
 
-**Critérios de aceitação:**
-- Listagem dos endpoints do usuário logado.
-- Exibição da URL pública e de um trecho do JSON para identificação.
-- Botão de copiar URL em cada item da lista.
-
-**Estimativa:** 4h
-
----
-
-### RF05 — Exclusão de endpoint ★ Obrigatório
-
-**Descrição:** O usuário deve poder deletar um endpoint que não precisa mais.
-
-**Critérios de aceitação:**
-- Confirmação antes de excluir.
-- Remoção imediata da listagem após exclusão.
-- URL deixa de responder após a exclusão.
-
-**Estimativa:** 2h
-
----
-
-### RF06 — Configuração de status code ◎ Desejável
-
-**Descrição:** O usuário pode definir o status HTTP que o endpoint irá retornar.
-
-**Critérios de aceitação:**
-- Campo de seleção com os principais códigos (200, 201, 400, 404, 500).
-- Valor padrão 200.
-
-**Estimativa:** 2h *(implementar na semana 6 se houver tempo)*
-
----
-
-### RF07 — Edição de endpoint existente ◎ Desejável
-
-**Descrição:** O usuário pode editar o JSON de um endpoint já criado sem alterar sua URL.
-
-**Critérios de aceitação:**
-- Formulário pré-preenchido com o JSON atual.
-- URL permanece a mesma após edição.
-
-**Estimativa:** 3h *(implementar na semana 6 se houver tempo)*
-
----
-
-### RF08 — Configuração de delay de resposta ★ Obrigatório
-
-**Descrição:** Atraso configurável na resposta do endpoint (0 a 10.000ms).
-
-**Critérios de aceitação:**
-- Campo `delayMs` na criação/edição do endpoint.
-- O sistema pausa a resposta pelo tempo configurado usando `Thread.sleep` (Virtual Threads).
-
-**Estimativa:** 2h (Implementado)
+**Status:** Implementado (MockEndpointService)
 
 ---
 
 ### RF09 — Histórico de Logs recebidos ★ Obrigatório
 
 **Descrição:** O sistema exibe quantas vezes cada endpoint foi acessado
-e de qual origem, permitindo ao usuário monitorar o consumo de sua URL.
+e de qual origem (IP e Data).
 
-**Critérios de aceitação:**
-- Exibição do número total de acessos por endpoint na listagem.
-- Data e IP da última requisição recebida.
-- Histórico zerado ao deletar o endpoint.
-
-**Estimativa:** 3h
-**Justificativa:** Backend 100% implementado (RequestLog, RequestLogService,
-RequestLogRepository). Custo concentrado apenas na camada de apresentação.
+**Status:** Implementado (Backend)
 
 ---
 
