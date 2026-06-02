@@ -1,170 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-    <!-- ==================================================
-         CONFIGURAÇÕES BÁSICAS DA PÁGINA
-    ================================================== -->
-
-    <!-- Define o conjunto de caracteres UTF-8 -->
     <meta charset="UTF-8">
-
-    <!-- Torna o layout responsivo em dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Título exibido na aba do navegador -->
     <title>ResTest</title>
 
-    <!-- Importa o arquivo de estilos CSS -->
-    <link rel="stylesheet" href="./style.css">
-
+    <!-- Cache-busting: ?v=2 força o navegador a baixar a versão mais recente -->
+    <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 
-<!-- ==================================================
-     PLANO DE FUNDO DECORATIVO
-================================================== -->
-<div class="background"></div>
-
-<!-- ==================================================
-     CABEÇALHO PRINCIPAL (HERO)
-================================================== -->
 <header class="hero">
-
-    <!-- Nome da aplicação -->
     <h1>ResTest</h1>
-
-    <!-- Descrição do sistema -->
     <p>Crie endpoints mockados reais para testes frontend</p>
-
 </header>
 
-<!-- ==================================================
-     CONTEÚDO PRINCIPAL DA APLICAÇÃO
-================================================== -->
 <main class="container">
 
-    <!-- ==================================================
-         FORMULÁRIO DE CRIAÇÃO DE ENDPOINTS
-    ================================================== -->
+    <!-- Formulário de criação / edição de endpoint -->
     <section class="card form-card">
 
-        <!-- Campo para definir o nome do endpoint -->
         <div class="field">
             <label>Nome do endpoint</label>
-
-            <input
-                type="text"
-                id="label"
-                placeholder="Usuários API"
-            >
+            <input type="text" id="label" placeholder="Ex: Usuários API">
         </div>
 
-        <!-- Grid contendo Status HTTP e Delay -->
+        <!-- Status e Delay em grid de duas colunas -->
         <div class="grid">
-
-            <!-- Seleção do código HTTP -->
             <div class="field">
-
                 <label>Status HTTP</label>
-
                 <select id="statusCode">
-
-                    <!-- Opções de status possíveis -->
-                    <option value="200">200</option>
-                    <option value="201">201</option>
-                    <option value="400">400</option>
-                    <option value="401">401</option>
-                    <option value="403">403</option>
-                    <option value="404">404</option>
-                    <option value="500">500</option>
-
+                    <option value="200">200 — OK</option>
+                    <option value="201">201 — Created</option>
+                    <option value="400">400 — Bad Request</option>
+                    <option value="401">401 — Unauthorized</option>
+                    <option value="403">403 — Forbidden</option>
+                    <option value="404">404 — Not Found</option>
+                    <option value="500">500 — Internal Server Error</option>
                 </select>
-
             </div>
 
-            <!-- Tempo de resposta simulado -->
             <div class="field">
-
                 <label>Delay (ms)</label>
-
-                <input
-                    type="number"
-                    id="delayMs"
-                    value="0"
-                >
-
+                <input type="number" id="delayMs" value="0" min="0" max="30000">
             </div>
-
         </div>
 
-        <!-- Campo para inserir o JSON de resposta -->
         <div class="field">
-
             <label>Payload JSON</label>
-
-            <textarea
-                id="payload"
-                rows="12">
-
+            <textarea id="payload" rows="12">
 {
   "message": "Olá mundo"
 }
-
             </textarea>
-
         </div>
 
-        <!-- Botão responsável por criar o endpoint -->
-        <button id="createBtn">
-            Criar Endpoint
-        </button>
-
-        <!-- Botão que formata automaticamente o JSON -->
-        <button
-            class="format-btn"
-            onclick="formatJson()">
-
-            Formatar JSON
-
-        </button>
+        <button id="createBtn">Criar Endpoint</button>
+        <button class="format-btn" onclick="formatJson()">Formatar JSON</button>
 
     </section>
 
-    <!-- ==================================================
-         LISTAGEM DOS ENDPOINTS CRIADOS
-    ================================================== -->
+    <!-- Lista de endpoints cadastrados -->
     <section class="card result-card">
 
-        <!-- Cabeçalho da área de resultados -->
         <div class="result-header">
-
             <h2>Endpoints Criados</h2>
-
-            <!-- Atualiza a lista de endpoints -->
-            <button id="reloadBtn">
-                Atualizar
-            </button>
-
+            <button id="reloadBtn">Atualizar</button>
         </div>
 
-        <!-- Container onde os endpoints serão renderizados via JavaScript -->
-        <div
-            id="endpointList"
-            class="endpoint-list">
-
+        <div id="endpointList" class="endpoint-list">
+            <!-- Preenchido dinamicamente pelo script.js -->
         </div>
 
     </section>
 
 </main>
 
-<!-- ==================================================
-     SCRIPT PRINCIPAL DA APLICAÇÃO
-     Responsável pela lógica de criação,
-     atualização e gerenciamento dos endpoints.
-================================================== -->
-<script src="code.js"></script>
-
+<!-- Cache-busting: ?v=2 força o navegador a baixar o script atualizado -->
+<script src="/js/script.js?v=2"></script>
 </body>
 </html>
