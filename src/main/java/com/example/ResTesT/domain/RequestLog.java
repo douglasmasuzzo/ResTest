@@ -1,54 +1,102 @@
 package com.example.ResTesT.domain;
 
-// Importa anotações JPA para mapeamento da entidade no banco
+// Importa anotações JPA para mapear esta classe como tabela no banco de dados
 import jakarta.persistence.*;
 
-// Importa anotações do Lombok para reduzir código boilerplate
+// Importa anotações do Lombok para geração automática de código
 import lombok.*;
 
 // Importa classe de data e hora
 import java.time.LocalDateTime;
 
-@Entity // Define a classe como uma entidade
-@Table(name = "request_logs") // Define o nome da tabela no banco
-
-// Gera automaticamente métodos GETTERS e SETTERS
-@Getter
-@Setter
-
-@NoArgsConstructor // Anotação do lombok: gera construtuor vazio
-@AllArgsConstructor //Anotação do lombok: gera construtor com todos os atributos
-
-@Builder // Anotação do lombok: gera construtor com todos os atributos
+/**
+ * Entidade que representa um Log de Requisição no banco de dados.
+ *
+ * O que é um "Request Log"?
+ *   Sempre que alguém acessa um endpoint mockado (/api/{hash}),
+ *   o sistema registra automaticamente quem acessou, quando e como.
+ *   Isso permite ao criador do mock ver o histórico de uso do seu endpoint.
+ *
+ * Informações registradas em cada log:
+ *   - Qual endpoint foi acessado
+ *   - Qual metodo HTTP foi usado (sempre GET no endpoint público)
+ *   - Data e hora do acesso
+ *   - Endereço IP de quem fez a requisição
+ */
+@Entity             // Indica ao JPA que esta classe representa uma tabela no banco
+@Table(name = "request_logs") // Nome da tabela no banco de dados
+@Getter             // Lombok: gera todos os getters automaticamente
+@Setter             // Lombok: gera todos os setters automaticamente
+@NoArgsConstructor  // Lombok: gera construtor vazio — obrigatório para o JPA
+@AllArgsConstructor // Lombok: gera construtor com todos os campos — útil em testes
+@Builder            // Lombok: permite criação de objetos com sintaxe fluente (Builder Pattern)
 public class RequestLog {
 
-    @Id // Define a chave primária da entidade
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera automaticamente o valor do ID
+    /**
+     * Identificador único do log no banco de dados.
+     *
+     * Usamos Long (número inteiro longo) em vez de UUID aqui porque:
+     *   - Logs são gerados automaticamente em grande volume
+     *   - Long com auto-incremento é mais eficiente para tabelas de histórico
+     *   - O usuário nunca precisa referenciar um log pelo ID diretamente
+     *
+     * GenerationType.IDENTITY instrui o banco a gerar o ID automaticamente
+     * usando a estratégia de auto-incremento (1, 2, 3, 4...)
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Relacionamento com a entidade MockEndpoint
+    /**
+     * Referência ao endpoint que foi acessado.
+     *
+     * @ManyToOne: muitos logs podem pertencer a um único endpoint.
+     * @JoinColumn: define que a coluna "endpoint_id" na tabela request_logs
+     *              armazena o ID do endpoint relacionado (chave estrangeira).
+     *
+     * fetch = LAZY → o endpoint só é carregado do banco quando necessário,
+     *               evitando consultas desnecessárias ao banco.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "endpoint_id", nullable = false)
     private MockEndpoint endpoint;
 
-    // MÉTODOS HTTP UTILIZADO NA REQUISIÇÃO
-    // Exemplo: GET, POST, PUT, DELETE
+    /**
+     * O metodo HTTP utilizado na requisição.
+     *
+     * Exemplos: "GET", "POST", "PUT", "DELETE"
+     * No endpoint público (/api/{hash}), será sempre "GET".
+     *
+     * length = 10 → suficiente para qualquer meodo HTTP padrão
+     */
     @Column(nullable = false, length = 10)
     private String method;
 
-    // DATA E HORA DA REQUISIÇÃO
+    /**
+     * Data e hora exata em que a requisição foi recebida.
+     * Preenchida automaticamente pelo metodo prePersist() — sem intervenção manual.
+     */
     @Column(nullable = false)
     private LocalDateTime calledAt;
 
-    // IP DO CLIENTE QUE FEZ A REQUISIÇÃO
+    /**
+     * Endereço IP do cliente que fez a requisição.
+     *
+     * Exemplo: "192.168.1.100" ou "127.0.0.1" (acesso local)
+     *
+     * length = 45 → suporta tanto IPv4 (ex: "192.168.1.1") quanto
+     *               IPv6 (ex: "2001:0db8:85a3:0000:0000:8a2e:0370:7334"),
+     *               que pode ter até 39 caracteres, mais espaço de margem.
+     */
     @Column(length = 45)
     private String callerIp;
 
-    // Executado antes de salvar no banco
+    /**
+     * Executado automaticamente pelo JPA antes de salvar um novo log no banco.
+     * Define a data/hora do acesso no momento exato da persistência.
+     */
     @PrePersist
     public void prePersist() {
-
-        // Define automaticamente a data/hora atual
         this.calledAt = LocalDateTime.now();
     }
 }
